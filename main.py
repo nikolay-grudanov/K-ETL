@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 
 # TODO Добавить выбор файла
-with open("input/create_bnpl.json", "r") as read_file:
+with open("input/example.json", "r") as read_file:
     jsonStructure = json.load(read_file)
 
 
