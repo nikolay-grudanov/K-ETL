@@ -32,8 +32,11 @@ def mapper(json_value, data, parent=""):
             try:
                 mapper(json_value[key][0], data, parent=parent+key+"[*].")
             except:
-                #TODO Исправить падение при пустом массиве
-                data.append([f"{parent+key}[*]", "-", mapper_type(json_value[key][0]), json_value[key][0], "Элемент массива"])
+                #TODO Стрёмная реализация, подумать как сделать лучше
+                if len(json_value[key])>0:
+                    data.append([f"{parent+key}[*]", "-", mapper_type(json_value[key][0]), json_value[key][0], "Элемент массива"])
+                else:
+                    data.append([f"{parent + key}[*]", "-", "-", "-", "Пустой массив"])
         else:
             data.append([f"{parent+key}", key, mapper_type(json_value[key]), json_value[key], ""])
 
