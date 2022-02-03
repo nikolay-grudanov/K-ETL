@@ -25,20 +25,21 @@ def mapper_type(value):
 def mapper(json_value, data, parent=""):
     for key in json_value:
         if type(json_value[key]) is dict:
-            data.append([f"{parent+key}", key, mapper_type(json_value[key]), "", "Составной объект, имеет вложения"])
-            mapper(json_value[key], data, parent=parent+key+".")
+            data.append([f"{parent + key}", key, mapper_type(json_value[key]), "", "Составной объект, имеет вложения"])
+            mapper(json_value[key], data, parent=parent + key + ".")
         elif type(json_value[key]) is list:
-            data.append([f"{parent+key}", key, mapper_type(json_value[key]), "", "Массив"])
+            data.append([f"{parent + key}", key, mapper_type(json_value[key]), "", "Массив"])
             try:
-                mapper(json_value[key][0], data, parent=parent+key+"[*].")
+                mapper(json_value[key][0], data, parent=parent + key + "[*].")
             except:
-                #TODO Стрёмная реализация, подумать как сделать лучше
-                if len(json_value[key])>0:
-                    data.append([f"{parent+key}[*]", "-", mapper_type(json_value[key][0]), json_value[key][0], "Элемент массива"])
+                # TODO Стрёмная реализация, подумать как сделать лучше
+                if len(json_value[key]) > 0:
+                    data.append([f"{parent + key}[*]", "-", mapper_type(json_value[key][0]), json_value[key][0],
+                                 "Элемент массива"])
                 else:
                     data.append([f"{parent + key}[*]", "-", "-", "-", "Пустой массив"])
         else:
-            data.append([f"{parent+key}", key, mapper_type(json_value[key]), json_value[key], ""])
+            data.append([f"{parent + key}", key, mapper_type(json_value[key]), json_value[key], ""])
 
     return data
 
@@ -46,7 +47,8 @@ def mapper(json_value, data, parent=""):
 data_list = []
 data_for_df = mapper(jsonStructure, data_list)
 
-df = pd.DataFrame(data_for_df, columns=['Путь к переменной', 'Наименование переменной', 'Тип', 'Пример заполнения', 'Комментарий'])
+df = pd.DataFrame(data_for_df,
+                  columns=['Путь к переменной', 'Наименование переменной', 'Тип', 'Пример заполнения', 'Комментарий'])
 timeSave = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 # TODO Добавить выбор директории для сохранения
 # TODO Добавить выбор формата сохранения
