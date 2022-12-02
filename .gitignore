@@ -19,5 +19,6 @@ target/
 
 ### Other ###
 
-**/.output/**
-**/.input/**
+output/**
+input/**
+.DS_Store
