@@ -1,0 +1,23 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+**/__pycache__
+
+### IntelliJ IDEA ###
+.idea
+.idea/**
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+**/.history/**
+/.history/**
+
+### Other ###
+
+**/.output/**
+**/.input/**
